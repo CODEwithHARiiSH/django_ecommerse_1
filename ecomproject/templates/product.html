@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+{% if product %}
+{{product.name}} - Old Is Gold
+{% else %}
+Explore the world of vehicles
+{% endif %}
+{% endblock %}
+
+{% block content %}
+
+<!--<div>-->
+
+<!--    <div>-->
+<!--        <p><a href="{% url 'ecom:allprodcat' %}">Home</a>|<a href="{{product.category.get_url}}">{{product.category}}</a> </p>-->
+<!--    </div>-->
+<!--</div>-->
+<!--<br>-->
+<div class="container">
+    <div class="row">
+<div class="col-12 col-sm-12 col-md-12 col-lg-6">
+
+
+        <img src="{{product.image.url}}" alt="{{product.name}}">
+        </div>
+
+
+<br>
+        <br>
+<br>
+
+        <div class="col-12 col-sm-12 col-md-12 col-lg-6">
+        <h2>{{product.name}}</h2>
+        <p>INR - {{product.price}}</p>
+        <h5><i>Product Description:</i></h5>
+        <p>{{product.desc}}</p>
+                    {% if product.stock > 1 %}
+            <h4><a  class=" btn btn-secondary" href="{% url 'cart:add_cart' product.id %}">Add to Wishlist</a>  | <a class=" btn btn-secondary" href="{% url 'cart:checkout' %}">Buy Now</a> </h4>
+            {% else %}
+            <h2><b>This ride is Sold out</b></h2>
+            {% endif %}
+            </div>
+
+</div>
+    </div>
+
+
+
+
+
+
+{% endblock %}

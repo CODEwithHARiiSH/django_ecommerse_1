@@ -1,0 +1,98 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+{% if category %}
+{{category.desc|truncatewords:155}}
+{% else %}
+welcome to Old Is Gold
+{% endif %}
+{% endblock %}
+{% block title %}
+{% if category %}
+{{category.name}} - Old Is Gold
+{% else %}
+Explore the world of vehicles
+{% endif %}
+{% endblock %}
+
+{% block content %}
+{% if category %}
+<div>
+    <div class="row my_row_class">
+        <div class="mx_auto">
+        <h6><a  class="row my_row_class my_font" href="{% url 'ecom:allprodcat' %}"> Our vehicle collection</a> </h6>
+    </div>
+        </div>
+</div>
+{% endif %}
+
+<div>
+    <div class="mx_auto">
+
+        {% if category %}
+        <center>
+        <img  src="{{category.image.url}}"alt="{{category.name}}" height="250" width="500">
+            </center>
+    </div>
+    <br>
+    <div>
+        <h2 class="text-center my_title" >{{category.name}}</h2>
+        <p class="text-justify">{{category.desc}}</p>
+    </div>
+    {% else %}
+    <div>
+        <center>
+        <img  class="my_image my_image_padding" src="{% static 'img/banner.png' %}" alt="Explore vehicles" height="300" width="700">
+            </center>
+    </div>
+    <br>
+    <div>
+        <center>
+        <h2>Explore And book you dream ride</h2>
+        <P class="text-justify my_font">Car is not limited to luxury items but it has taken over an important requirement in our lives. Need to go to the supermarket, need to go to your friend’s place, need to go to the doctor, need to go out for a hangout; the one-stop solution is CAR. It will take you to your destination without any hassle. It will provide you with coolness in summer & warmness in winter. In short, you will be amazed to know more about it once you start loving it. </P>
+        <b class="my_font">Old is Gold - Everything is affordable</b>
+        </center>
+    </div>
+    {% endif %}
+</div>
+<div>
+    <center>
+        <h4 class="my_font" >Our offers</h4>
+    </center>
+</div>
+<div  class="container">
+    <div class="row">
+        {% for i in products.object_list %}
+        <div class="my_bottom_margin  col-md-3" style="padding:20px;">
+            <div class="card text-center" style="min-width:12rem;padding:10px;width: 200px;height: 250px;">
+                <a href="{{i.get_url}}"><img class="card-image-top my_image" src="{{i.image.url}}" alt="{{i.name}}" height="200" width="200"> </a>
+
+            <div class="card-body">
+            <h4 class="my_font">{{i.name}}</h4>
+            <p class="my_font">INR - {{i.price}}</p>
+
+            </div>
+            </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="mx-auto">
+        {% if products.paginator.num_pages > 1 %}
+
+        <hr>
+        <div class="text-center">
+            {% for pg in products.paginator.page_range %}
+            <a href="?page={{pg}}" class="btn btn-light btn-sm {% if products.number == pg %} active {% endif %}">{{pg}}</a>
+        {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+    <br>
+</div>
+{% endblock %}
+
+
+
+
+
